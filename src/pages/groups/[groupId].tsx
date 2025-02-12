@@ -27,7 +27,7 @@ import { toUIString } from '~/utils/numbers';
 import Link from 'next/link';
 import { CategoryIcon } from '~/components/ui/categoryIcons';
 import { env } from '~/env';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { type NextPageWithUser } from '~/types';
 import { motion } from 'framer-motion';
 import {
@@ -159,12 +159,12 @@ const BalancePage: NextPageWithUser<{
                 <div className="mt-2 flex flex-wrap gap-1">
                   {groupTotalQuery.data?.map((total, index, arr) => {
                     return total._sum.amount != null ? (
-                      <>
-                        <div key={total.currency} className="flex flex-wrap gap-1">
+                      <React.Fragment key={total.currency}>
+                        <div className="flex flex-wrap gap-1">
                           {total.currency} {toUIString(total._sum.amount)}
                         </div>
                         {index < arr.length - 1 ? <span>+</span> : null}
-                      </>
+                      </React.Fragment>
                     ) : null;
                   })}
                 </div>
