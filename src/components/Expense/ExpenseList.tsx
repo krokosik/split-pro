@@ -14,7 +14,7 @@ export const ExpenseList: React.FC<{
   expenses:
     | inferRouterOutputs<GroupRouter>['getExpenses']
     | inferRouterOutputs<UserRouter>['getExpensesWithFriend'];
-  contactId: string;
+  contactId: number;
   isLoading?: boolean;
 }> = ({ userId, expenses, contactId, isLoading }) => (
   <>
