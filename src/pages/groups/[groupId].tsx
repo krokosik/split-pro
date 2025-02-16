@@ -45,6 +45,7 @@ import GroupMyBalance from '~/components/group/GroupMyBalance';
 import { Switch } from '~/components/ui/switch';
 import { ExpenseList } from '~/components/Expense/ExpenseList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
+import { BalanceList } from '~/components/Expense/BalanceList';
 
 const BalancePage: NextPageWithUser<{
   enableSendingInvites: boolean;
@@ -412,7 +413,14 @@ const BalancePage: NextPageWithUser<{
               isLoading={expensesQuery.isLoading}
             />
           </TabsContent>
-          <TabsContent value="balances"></TabsContent>
+          <TabsContent value="balances">
+            <BalanceList
+              balances={groupDetailQuery.data?.groupBalances ?? []}
+              users={groupDetailQuery.data?.groupUsers.map((gu) => gu.user) ?? []}
+              userId={user.id}
+              isLoading={groupDetailQuery.isLoading}
+            />
+          </TabsContent>
         </Tabs>
       </MainLayout>
     </>
