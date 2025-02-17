@@ -5,6 +5,7 @@ import { db } from '~/server/db';
 import { createGroupExpense, deleteExpense, editExpense } from '../services/splitService';
 import { TRPCError } from '@trpc/server';
 import { nanoid } from 'nanoid';
+import { simplifyDebts } from '~/lib/simplify';
 
 export const groupRouter = createTRPCRouter({
   create: protectedProcedure
@@ -252,6 +253,10 @@ export const groupRouter = createTRPCRouter({
         groupBalances: true,
       },
     });
+
+    if (group?.simplifyDebts) {
+      group.groupBalances = simplifyDebts(group.groupBalances);
+    }
 
     return group;
   }),
