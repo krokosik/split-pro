@@ -1,35 +1,29 @@
-import Head from 'next/head';
-import MainLayout from '~/components/Layout/MainLayout';
 import Avatar from 'boring-avatars';
 import clsx from 'clsx';
-import { Button } from '~/components/ui/button';
-import { SplitType } from '@prisma/client';
-import { api } from '~/utils/api';
-import { useRouter } from 'next/router';
+import { format } from 'date-fns';
+import { motion } from 'framer-motion';
 import {
+  BarChartHorizontal,
   Check,
   ChevronLeft,
   DoorOpen,
+  Info,
+  Merge,
   Share,
   Trash2,
   UserPlus,
-  BarChartHorizontal,
-  Info,
-  Merge,
 } from 'lucide-react';
-import { AppDrawer } from '~/components/ui/drawer';
-import { UserAvatar } from '~/components/ui/avatar';
-import NoMembers from '~/components/group/NoMembers';
-import { format } from 'date-fns';
-import AddMembers from '~/components/group/AddMembers';
-import Image from 'next/image';
-import { toUIString } from '~/utils/numbers';
+import Head from 'next/head';
 import Link from 'next/link';
-import { CategoryIcon } from '~/components/ui/categoryIcons';
-import { env } from '~/env';
-import React, { useMemo, useState } from 'react';
-import { type NextPageWithUser } from '~/types';
-import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
+import { BalanceList } from '~/components/Expense/BalanceList';
+import { ExpenseList } from '~/components/Expense/ExpenseList';
+import AddMembers from '~/components/group/AddMembers';
+import GroupMyBalance from '~/components/group/GroupMyBalance';
+import NoMembers from '~/components/group/NoMembers';
+import MainLayout from '~/components/Layout/MainLayout';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -40,12 +34,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '~/components/ui/alert-dialog';
-import { toast } from 'sonner';
-import GroupMyBalance from '~/components/group/GroupMyBalance';
+import { UserAvatar } from '~/components/ui/avatar';
+import { Button } from '~/components/ui/button';
+import { AppDrawer } from '~/components/ui/drawer';
 import { Switch } from '~/components/ui/switch';
-import { ExpenseList } from '~/components/Expense/ExpenseList';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import { BalanceList } from '~/components/Expense/BalanceList';
+import { env } from '~/env';
+import { type NextPageWithUser } from '~/types';
+import { api } from '~/utils/api';
+import { toUIString } from '~/utils/numbers';
 
 const BalancePage: NextPageWithUser<{
   enableSendingInvites: boolean;
@@ -226,7 +223,7 @@ const BalancePage: NextPageWithUser<{
                           { groupId },
                           {
                             onSuccess: () => {
-                              groupDetailQuery.refetch();
+                              void groupDetailQuery.refetch();
                             },
                             onError: () => {
                               toast.error('Failed to update setting');
