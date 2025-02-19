@@ -1,10 +1,14 @@
 import { SplitType } from '@prisma/client';
+import { TRPCError } from '@trpc/server';
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 import { createTRPCRouter, groupProcedure, protectedProcedure } from '~/server/api/trpc';
 import { db } from '~/server/db';
-import { createGroupExpense, deleteExpense, editExpense } from '../services/splitService';
-import { TRPCError } from '@trpc/server';
-import { nanoid } from 'nanoid';
+import {
+  createGroupExpense,
+  editExpense,
+  recalculateGroupBalances,
+} from '../services/splitService';
 import { simplifyDebts } from '~/lib/simplify';
 
 export const groupRouter = createTRPCRouter({
@@ -50,7 +54,6 @@ export const groupRouter = createTRPCRouter({
   }),
 
   getAllGroupsWithBalances: protectedProcedure.query(async ({ ctx }) => {
-    const time = Date.now();
     const groups = await ctx.db.groupUser.findMany({
       where: {
         userId: ctx.session.user.id,
@@ -330,6 +333,10 @@ export const groupRouter = createTRPCRouter({
 
       return simplifyDebts;
     }),
+
+  recalculateBalances: groupProcedure
+    .input(z.object({ groupId: z.number() }))
+    .mutation(async ({ input }) => recalculateGroupBalances(input.groupId)),
 
   leaveGroup: groupProcedure
     .input(z.object({ groupId: z.number() }))
