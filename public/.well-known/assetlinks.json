@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "eu.qodl.splitpro.twa",
+        "sha256_cert_fingerprints": ["69:93:04:B6:9E:02:3D:9D:A5:DA:B8:62:A5:5D:FA:1A:B0:13:E2:F7:E2:6C:63:BE:85:F2:42:04:41:D4:C3:FA"]
+      }
+    }]
