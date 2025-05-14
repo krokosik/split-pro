@@ -1,7 +1,8 @@
 {
-  "name": "SplitPro",
+  "name": "SplitPro QODL",
   "short_name": "SplitPro",
-  "description": "Split Expenses with your friends for free. SplitPro is an open-source alternative for splitwise",
+  "id": "eu.qodl.splitpro",
+  "description": "SplitPro instance for use at QODL. SplitPro is an open-source alternative for Splitwise",
   "icons": [
     {
       "src": "/icons/ios/72.png",
@@ -12,13 +13,25 @@
       "src": "/icons/ios/192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/ios/192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icons/ios/256.png",
       "sizes": "256x256",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/ios/256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icons/ios/512.png",
@@ -76,5 +89,25 @@
         }
       ]
     }
-  ]
+  ],
+  "lang": "en",
+  "scope": "/",
+  "dir": "ltr",
+  "display_override": ["standalone", "window-controls-overlay"],
+  "prefer_related_applications": false,
+  "categories": [
+    "finance",
+    "lifestyle",
+    "productivity",
+    "shopping",
+    "social",
+    "travel",
+    "utilities"
+  ],
+  "related_applications": [],
+  "file_handlers": [],
+  "protocol_handlers": [],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }
